@@ -48,14 +48,26 @@ Vue.js와 Flask를 사용하여 구축된 웹 포털 프로젝트입니다. 전�
     *   **Frontend**: 브라우저를 열고 `http://localhost:8050` 으로 접속하세요.
     *   **Backend API**: `http://localhost:5001/api/data` 에서 API 엔드포인트를 테스트할 수 있습니다.
     
-## 🚀 이 프로젝트는 Jenkins를 사용하여 CI/CD 파이프라인을 구축합니다. 
+4.  **컨테이너 중지:**
+    애플리케이션을 중지하고 컨테이너를 삭제하려면 다음 명령을 실행하세요.
+    ```bash
+    docker-compose down
+    ```
 
-Jenkinsfile은 파이프라인을 코드로 정의하며, 주요 단계는 다음과 같습니다: 
+## ⚙️ 환경 변수
 
-1. Checkout: Git 저장소에서 최신 코드를 가져옵니다. 
+이 프로젝트는 `docker-compose.yml`에서 환경 변수를 사용할 수 있습니다. 원활한 실행을 위해 프로젝트 루트에 `.env` 파일을 생성하고 필요한 변수를 설정하는 것을 권장합니다.
 
-2. Backend Build & Push: backend Docker 이미지를 빌드하고 Docker Hub와 같은 컨테이너 레지스트리에 푸시합니다. 
+```env
+# .env.example
+FLASK_ENV=development
+```
 
-3. Frontend Build & Push: frontend Docker 이미지를 빌드하고 컨테이너 레지스트리에 푸시합니다. 
+## 🚀 CI/CD
 
-4. Deploy: 대상 서버에서 docker-compose pull 및 docker-compose up -d 명령을 실행하여 최신 버전의 애플리케이션을 배포합니다.
+이 프로젝트는 Jenkins를 사용하여 CI/CD 파이프라인을 구축합니다. `Jenkinsfile`은 파이프라인을 코드로 정의하며, 주요 단계는 다음과 같습니다:
+
+1.  **Checkout:** Git 저장소에서 최신 코드를 가져옵니다.
+2.  **Backend Build & Push:** `backend` Docker 이미지를 빌드하고 Docker Hub와 같은 컨테이너 레지스트리에 푸시합니다.
+3.  **Frontend Build & Push:** `frontend` Docker 이미지를 빌드하고 컨테이너 레지스트리에 푸시합니다.
+4.  **Deploy:** 대상 서버에서 `docker-compose pull` 및 `docker-compose up -d` 명령을 실행하여 최신 버전의 애플리케이션을 배포합니다.
