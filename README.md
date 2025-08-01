@@ -48,7 +48,7 @@ Vue.js와 Flask를 사용하여 구축된 웹 포털 프로젝트입니다. 전�
     *   **Frontend**: 브라우저를 열고 `http://localhost:8050` 으로 접속하세요.
     *   **Backend API**: `http://localhost:5001/api/data` 에서 API 엔드포인트를 테스트할 수 있습니다.
     
-## 🚀 CI/CD + +이 프로젝트는 Jenkins를 사용하여 CI/CD 파이프라인을 구축합니다. 
+## 🚀 이 프로젝트는 Jenkins를 사용하여 CI/CD 파이프라인을 구축합니다. 
 
 Jenkinsfile은 파이프라인을 코드로 정의하며, 주요 단계는 다음과 같습니다: 
 
