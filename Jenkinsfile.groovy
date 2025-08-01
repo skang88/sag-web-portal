@@ -33,7 +33,9 @@ pipeline {
                         stage('Build Image') {
                             steps {
                                 echo "Building Backend Docker image: ${env.BACKEND_IMAGE_NAME}"
-                                sh "docker build -t ${env.BACKEND_IMAGE_NAME} ./backend"
+                                script {
+                                    docker.build(env.BACKEND_IMAGE_NAME, './backend')
+                                }
                             }
                         }
                         stage('Deploy Container') {
@@ -52,7 +54,9 @@ pipeline {
                         stage('Build Image') {
                             steps {
                                 echo "Building Frontend Docker image: ${env.FRONTEND_IMAGE_NAME}"
-                                sh "docker build -t ${env.FRONTEND_IMAGE_NAME} ./frontend"
+                                script {
+                                    docker.build(env.FRONTEND_IMAGE_NAME, './frontend')
+                                }
                             }
                         }
                         stage('Deploy Container') {
