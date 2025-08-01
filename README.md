@@ -18,6 +18,7 @@ Vue.js와 Flask를 사용하여 구축된 웹 포털 프로젝트입니다. 전�
 ├── backend/      # Flask 애플리케이션
 ├── frontend/     # Vue.js 애플리케이션
 ├── docker-compose.yml
+├── Jenkinsfile # Jenkins 파이프라인 정의
 └── README.md
 ```
 
@@ -46,3 +47,15 @@ Vue.js와 Flask를 사용하여 구축된 웹 포털 프로젝트입니다. 전�
 3.  **애플리케이션 접속:**
     *   **Frontend**: 브라우저를 열고 `http://localhost:8050` 으로 접속하세요.
     *   **Backend API**: `http://localhost:5001/api/data` 에서 API 엔드포인트를 테스트할 수 있습니다.
+    
+## 🚀 CI/CD + +이 프로젝트는 Jenkins를 사용하여 CI/CD 파이프라인을 구축합니다. 
+
+Jenkinsfile은 파이프라인을 코드로 정의하며, 주요 단계는 다음과 같습니다: 
+
+1. Checkout: Git 저장소에서 최신 코드를 가져옵니다. 
+
+2. Backend Build & Push: backend Docker 이미지를 빌드하고 Docker Hub와 같은 컨테이너 레지스트리에 푸시합니다. 
+
+3. Frontend Build & Push: frontend Docker 이미지를 빌드하고 컨테이너 레지스트리에 푸시합니다. 
+
+4. Deploy: 대상 서버에서 docker-compose pull 및 docker-compose up -d 명령을 실행하여 최신 버전의 애플리케이션을 배포합니다.
