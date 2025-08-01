@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: sag_portal_backend
+    ports:
+      - "5001:5000" # 호스트 포트 5001번을 컨테이너 5000번 포트와 연결
+    volumes:
+      - ./backend:/app # 개발 시 코드 변경을 즉시 반영하려면 이 줄의 주석을 해제하세요.
+
+  frontend:
+    build: ./frontend
+    container_name: sag_portal_frontend
+    ports:
+      - "8080:80" # 호스트 포트 8080번을 컨테이너 80번 포트와 연결
+    depends_on:
+      - backend
