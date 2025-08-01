@@ -60,7 +60,7 @@ pipeline {
                                 script {
                                     dockerStopRemove(env.FRONTEND_CONTAINER_NAME)
                                     echo "Running new Frontend container..."
-                                    sh "docker run -d --name ${env.FRONTEND_CONTAINER_NAME} --network ${DOCKER_NETWORK} -p 8080:80 --restart always ${env.FRONTEND_IMAGE_NAME}"
+                                    sh "docker run -d --name ${env.FRONTEND_CONTAINER_NAME} --network ${DOCKER_NETWORK} -p 8050:80 --restart always ${env.FRONTEND_IMAGE_NAME}"
                                 }
                             }
                         }
