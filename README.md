@@ -65,9 +65,27 @@ FLASK_ENV=development
 
 ## 🚀 CI/CD
 
-이 프로젝트는 Jenkins를 사용하여 CI/CD 파이프라인을 구축합니다. `Jenkinsfile`은 파이프라인을 코드로 정의하며, 주요 단계는 다음과 같습니다:
+이 프로젝트는 Jenkins를 사용하여 CI(지속적 통합) 파이프라인을 구축합니다. `Jenkinsfile`은 파이프라인을 코드로 정의하며, Git에 코드가 푸시될 때마다 자동으로 애플리케이션을 빌드하고 로컬 환경에 배포합니다.
+
+### 파이프라인 단계
 
 1.  **Checkout:** Git 저장소에서 최신 코드를 가져옵니다.
-2.  **Backend Build & Push:** `backend` Docker 이미지를 빌드하고 Docker Hub와 같은 컨테이너 레지스트리에 푸시합니다.
-3.  **Frontend Build & Push:** `frontend` Docker 이미지를 빌드하고 컨테이너 레지스트리에 푸시합니다.
-4.  **Deploy:** 대상 서버에서 `docker-compose pull` 및 `docker-compose up -d` 명령을 실행하여 최신 버전의 애플리케이션을 배포합니다.
+2.  **Prepare Environment:** 컨테이너 간 통신을 위한 Docker 네트워크(`sag-portal-net`)를 생성합니다.
+3.  **Build & Deploy:**
+    *   `backend`와 `frontend` Docker 이미지를 병렬로 빌드합니다.
+    *   기존 컨테이너가 실행 중인 경우 중지하고 삭제합니다.
+    *   새로운 버전의 컨테이너를 실행하여 애플리케이션을 배포합니다.
+
+### Jenkins 파이프라인 설정 방법
+
+`Jenkinsfile`을 사용하여 Jenkins에 파이프라인을 등록하는 방법은 다음과 같습니다.
+
+1.  Jenkins 대시보드에서 **"New Item"**을 클릭합니다.
+2.  아이템 이름을 입력하고(예: `sag-web-portal-pipeline`), **"Pipeline"** 유형을 선택한 후 "OK"를 클릭합니다.
+3.  **"Pipeline"** 탭으로 스크롤하여 다음을 설정합니다.
+    *   **Definition:** 드롭다운 메뉴에서 **"Pipeline script from SCM"**을 선택합니다.
+    *   **SCM:** **"Git"**을 선택합니다.
+    *   **Repository URL:** 이 프로젝트의 Git 저장소 URL을 입력합니다. (예: `https://github.com/skang88/sag-web-portal.git`)
+    *   **Script Path:** `Jenkinsfile` (기본값이므로 대부분 변경할 필요가 없습니다.)
+4.  **"Save"**를 클릭하여 파이프라인 설정을 저장합니다.
+5.  이제 **"Build Now"**를 클릭하여 파이프라인을 실행할 수 있습니다.
