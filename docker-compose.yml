@@ -6,7 +6,7 @@ services:
     build: ./backend
     container_name: sag_portal_backend
     ports:
-      - "5001:5000" # 호스트 포트 5001번을 컨테이너 5000번 포트와 연결
+      - "5000:5000" # 호스트 포트 5001번을 컨테이너 5000번 포트와 연결
     # 로컬 개발 시 코드 변경을 즉시 반영하기 위해 volumes를 활성화합니다.
     volumes:
       - ./backend:/app
@@ -30,4 +30,6 @@ services:
       - ./frontend:/app
       # node_modules는 컨테이너 내부에 유지하여 호스트의 빈 폴더로 덮어쓰는 것을 방지합니다.
       - /app/node_modules
+    environment:
+      - DOCKER_DEV=true
     command: npm run dev -- --host
