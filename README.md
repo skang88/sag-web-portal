@@ -8,6 +8,7 @@ Vue.js와 Flask를 사용하여 구축된 웹 포털 프로젝트입니다. 전�
 *   **Backend**: [Flask](https://flask.palletsprojects.com/) (with Gunicorn)
 *   **Web Server (Frontend)**: [Nginx](https://www.nginx.com/)
 *   **Containerization**: [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
+*   **CI/CD**: [Jenkins](https://www.jenkins.io/)
 
 ## 📂 프로젝트 구조
 
