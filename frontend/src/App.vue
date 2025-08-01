@@ -23,14 +23,12 @@ onMounted(async () => {
 
 <template>
   <main>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
     <div class="welcome-message">
-      <h1>Welcome to Seohan Auto Georgia</h1>
+      <h1>Welcome to Seohan Auto Georgia!</h1>
     </div>
 
     <div class="api-test-result">
-      <h2>Backend API Test Result:</h2>
+      <h2>Flask Backend API Test Result:</h2>
       <p class="message-box">{{ apiMessage }}</p>
     </div>
   </main>
@@ -76,4 +74,3 @@ main {
   font-size: 1.2rem;
 }
 </style>
-

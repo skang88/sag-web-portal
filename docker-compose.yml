@@ -14,7 +14,10 @@ services:
     command: flask run --host=0.0.0.0 --port=5000
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      # 로컬 개발 시에는 Dockerfile의 'build-stage'까지만 사용합니다.
+      target: build-stage
     container_name: sag_portal_frontend
     ports:
       # Vite 개발 서버의 기본 포트인 5173을 호스트의 8050 포트와 연결합니다.
