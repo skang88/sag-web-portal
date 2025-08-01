@@ -41,7 +41,7 @@ Vue.js와 Flask를 사용하여 구축된 웹 포털 프로젝트입니다. 전�
 2.  **컨테이너 빌드 및 실행:**
     Docker Compose를 사용하여 이미지를 빌드하고 서비스를 시작합니다.
     ```bash
-    docker-compose up --build
+    docker-compose up --build -d
     ```
 
 3.  **애플리케이션 접속:**
