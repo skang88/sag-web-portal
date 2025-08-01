@@ -2,6 +2,15 @@
 
 from flask import Flask, jsonify
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
+
+# .env 파일에서 환경 변수 로드
+load_dotenv()
+
+# 환경 변수 테스트
+test_var = os.getenv("TEST_VAR")
+print(f"TEST_VAR from .env: {test_var}")
 
 # Flask 애플리케이션 생성
 app = Flask(__name__)
@@ -17,6 +26,8 @@ def get_data():
     return jsonify({
         "message": "Hello from Flask Backend!"
     })
+
+
 
 if __name__ == '__main__':
     # 디버그 모드로 서버 실행 (개발 중에만 사용)

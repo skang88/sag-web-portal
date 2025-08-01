@@ -26,6 +26,7 @@ wheels/
 
 # Flask virtualenv
 /backend/venv/
+/backend/.flaskenv
 .env
 
 # Frontend
