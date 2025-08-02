@@ -15,5 +15,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # 6. 포트 노출 및 서버 실행
-EXPOSE 5000
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+EXPOSE 5001
+CMD ["gunicorn", "--bind", "0.0.0.0:5001", "app:app"]
