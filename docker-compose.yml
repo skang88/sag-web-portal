@@ -6,12 +6,12 @@ services:
     build: ./backend
     container_name: sag_portal_backend
     ports:
-      - "5000:5000" # 호스트 포트 5001번을 컨테이너 5000번 포트와 연결
+      - "5001:5001" # 호스트 포트 5001번을 컨테이너 5001번 포트와 연결
     # 로컬 개발 시 코드 변경을 즉시 반영하기 위해 volumes를 활성화합니다.
     volumes:
       - ./backend:/app
     # 로컬 개발 시에는 Gunicorn 대신 Flask의 내장 개발 서버를 사용해 핫 리로딩을 활성화합니다.
-    command: flask run --host=0.0.0.0 --port=5000
+    command: flask run --host=0.0.0.0 --port=5001
 
   frontend:
     build:

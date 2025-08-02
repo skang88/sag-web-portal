@@ -27,9 +27,8 @@ def get_data():
         "message": "Hello from Flask Backend!"
     })
 
-
-
 if __name__ == '__main__':
     # 0.0.0.0으로 호스트를 설정하여 외부에서 접근 가능하도록 합니다.
-    # 디버그 모드는 .flaskenv 파일에 의해 제어됩니다.
-    app.run(host='0.0.0.0')
+    # `flask run` 명령어를 사용하는 것을 권장하며,
+    # 이 경우 호스트, 포트, 디버그 모드는 .flaskenv 파일에 의해 제어됩니다.
+    app.run()

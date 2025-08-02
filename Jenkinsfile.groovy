@@ -43,7 +43,7 @@ pipeline {
                                 script {
                                     dockerStopRemove(env.BACKEND_CONTAINER_NAME)
                                     echo "Running new Backend container..."
-                                    sh "docker run -d --name ${env.BACKEND_CONTAINER_NAME} --network ${DOCKER_NETWORK} -p 5001:5000 --restart always ${env.BACKEND_IMAGE_NAME}"
+                                    sh "docker run -d --name ${env.BACKEND_CONTAINER_NAME} --network ${DOCKER_NETWORK} -p 5001:5001 --restart always ${env.BACKEND_IMAGE_NAME}"
                                 }
                             }
                         }

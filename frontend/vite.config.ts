@@ -8,7 +8,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 const isDocker = process.env.DOCKER_DEV === 'true'
 
 // 백엔드 API의 주소를 환경에 따라 동적으로 설정합니다.
-const backendTarget = isDocker ? 'http://backend:5000' : 'http://localhost:5000'
+const backendTarget = isDocker ? 'http://backend:5001' : 'http://localhost:5001'
 
 // https://vite.dev/config/
 export default defineConfig({
