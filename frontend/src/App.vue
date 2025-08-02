@@ -7,6 +7,9 @@ const apiMessage = ref('Loading data from backend...')
 // 컴포넌트가 마운트될 때 백엔드 API를 호출하는 함수
 onMounted(async () => {
   try {
+    // 백엔드로부터 데이터를 수신중이다는 메시지를 표시하기 위해 0.5초의 지연 시간 추가 
+    await new Promise(resolve => setTimeout(resolve, 700));
+    
     // Nginx 프록시를 통해 백엔드 API 호출
     const response = await fetch('/api/data')
     if (!response.ok) {
@@ -22,55 +25,16 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main>
-    <div class="welcome-message">
-      <h1>Welcome to Seohan Auto Georgia!</h1>
+  <main class="container py-5 d-flex flex-column align-items-center justify-content-center vh-100">
+    <div class="text-center mb-5">
+      <h1 class="display-4 fw-bold text-dark">Welcome to Seohan Auto Georgia!</h1>
     </div>
 
-    <div class="api-test-result">
-      <h2>Flask Backend API Test Result:</h2>
-      <p class="message-box">{{ apiMessage }}</p>
+    <div class="card shadow p-4" style="width: 100%; max-width: 600px;">
+      <div class="text-center card-body">
+        <h2 class="card-title h4 mb-3 text-primary">Flask Backend API Test Result:</h2>
+        <p class="card-text border p-3 rounded bg-light fw-bold text-success">{{ apiMessage }}</p>
+      </div>
     </div>
   </main>
 </template>
-
-<style scoped>
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 80vh;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  text-align: center;
-}
-
-.logo {
-  margin-bottom: 2rem;
-}
-
-.welcome-message h1 {
-  font-size: 2.5rem;
-  color: #2c3e50;
-  margin-bottom: 2rem;
-}
-
-.api-test-result {
-  margin-top: 2rem;
-}
-
-.api-test-result h2 {
-  color: #34495e;
-}
-
-.message-box {
-  margin-top: 1rem;
-  padding: 1rem 2rem;
-  border: 1px solid #42b983;
-  border-radius: 8px;
-  background-color: #f0f9f5;
-  color: #1a5e42;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-</style>
