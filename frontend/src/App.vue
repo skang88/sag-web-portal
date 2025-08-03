@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 
 // 백엔드로부터 받은 메시지를 저장할 반응형 변수
 const apiMessage = ref('Loading data from backend...')
+const asnApiResult = ref('Click the button to test the ASN API.')
 
 // 컴포넌트가 마운트될 때 백엔드 API를 호출하는 함수
 onMounted(async () => {
@@ -22,6 +23,21 @@ onMounted(async () => {
     apiMessage.value = 'Error: Could not retrieve data from backend.'
   }
 })
+
+async function testAsnApi() {
+  asnApiResult.value = 'Fetching ASN data...'
+  try {
+    const response = await fetch('https://seohanga.com/api/asn?date=20250801&group=01')
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response.statusText}`)
+    }
+    const data = await response.json()
+    asnApiResult.value = JSON.stringify(data, null, 2)
+  } catch (error) {
+    console.error('Failed to fetch ASN data:', error)
+    asnApiResult.value = `Error: Could not retrieve data. ${error.message}`
+  }
+}
 </script>
 
 <template>
@@ -35,6 +51,14 @@ onMounted(async () => {
         <h2 class="card-title h4 mb-3 text-primary">Flask Backend API Test Result:</h2>
         <p class="card-text border p-3 rounded bg-light fw-bold text-success">{{ apiMessage }}</p>
       </div>
+    </div>
+
+    <div class="card shadow p-4 mt-4" style="width: 100%; max-width: 600px;">
+        <div class="text-center card-body">
+            <h2 class="card-title h4 mb-3 text-primary">Express Backend API Test Result:</h2>
+            <button @click="testAsnApi" class="btn btn-secondary mb-3">Test ASN API</button>
+            <pre class="card-text border p-3 rounded bg-light text-start" style="white-space: pre-wrap; max-height: 300px; overflow-y: auto;"><code>{{ asnApiResult }}</code></pre>
+        </div>
     </div>
   </main>
 </template>
