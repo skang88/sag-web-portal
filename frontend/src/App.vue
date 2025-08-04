@@ -43,7 +43,7 @@ async function testAsnApi() {
 <template>
   <main class="container py-5 d-flex flex-column align-items-center justify-content-center vh-100">
     <div class="text-center mb-5">
-      <h1 class="display-4 fw-bold text-dark">Welcome to Seohan Auto Georgia!</h1>
+      <h1 class="display-4 fw-bold text-dark">Welcome to Seohan Auto Georgia!!</h1>
     </div>
 
     <div class="card shadow p-4" style="width: 100%; max-width: 600px;">
