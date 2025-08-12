@@ -48,6 +48,16 @@ pipeline {
                                     string(credentialsId: 'mssql-port', variable: 'MSSQL_PORT')
                                 ]) {
                                     script {
+                                        echo "--- Printing environment variables for debugging ---"
+                                        sh """docker run --rm --name ${env.BACKEND_CONTAINER_NAME}_debug \
+                                            -e MSSQL_SERVER=${MSSQL_SERVER} \
+                                            -e MSSQL_DATABASE=${MSSQL_DATABASE} \
+                                            -e MSSQL_USER=${MSSQL_USER} \
+                                            -e MSSQL_PASSWORD=${MSSQL_PASSWORD} \
+                                            -e MSSQL_PORT=${MSSQL_PORT} \
+                                            ${env.BACKEND_IMAGE_NAME} printenv"""
+
+                                        echo "--- Reverting to original docker run command ---"
                                         dockerStopRemove(env.BACKEND_CONTAINER_NAME)
                                         echo "Running new Backend container..."
                                         sh """docker run -d --name ${env.BACKEND_CONTAINER_NAME} \
