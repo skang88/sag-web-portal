@@ -41,17 +41,21 @@ pipeline {
                         stage('Deploy Container') {
                             steps {
                                 script {
+                                    echo "--- Running Network Connectivity Test ---"
+                                    sh "nc -zv 172.16.220.3 1433 || echo 'Connection test failed. Check firewall rules.'"
+
+                                    echo "--- Attempting to run container ---"
                                     dockerStopRemove(env.BACKEND_CONTAINER_NAME)
                                     echo "Running new Backend container with hardcoded credentials for debugging..."
-                                    sh """docker run -d --name ${env.BACKEND_CONTAINER_NAME} \
-                                        --network ${DOCKER_NETWORK} \
-                                        -p 5001:5001 \
-                                        --restart always \
-                                        -e MSSQL_SERVER='172.16.220.3' \
-                                        -e MSSQL_DATABASE='SAG' \
-                                        -e MSSQL_USER='seokgyun' \
-                                        -e MSSQL_PASSWORD='1q2w3e4r' \
-                                        -e MSSQL_PORT='1433' \
+                                    sh """docker run -d --name ${env.BACKEND_CONTAINER_NAME} 
+                                        --network ${DOCKER_NETWORK} 
+                                        -p 5001:5001 
+                                        --restart always 
+                                        -e MSSQL_SERVER='172.16.220.3' 
+                                        -e MSSQL_DATABASE='SAG' 
+                                        -e MSSQL_USER='seokgyun' 
+                                        -e MSSQL_PASSWORD='1q2w3e4r' 
+                                        -e MSSQL_PORT='1433' 
                                         ${env.BACKEND_IMAGE_NAME}"""
                                 }
                             }
