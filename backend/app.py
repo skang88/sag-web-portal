@@ -21,9 +21,9 @@ def get_db_connection():
     username = os.getenv('MSSQL_USER')
     password = os.getenv('MSSQL_PASSWORD')
     port = os.getenv('MSSQL_PORT', 1433)
-    driver = '{SQL Server}' # 사용하는 드라이버에 맞게 수정해야 할 수 있습니다.
+    driver = '{SQL Server}'
     
-    conn_str = f'DRIVER={driver};SERVER={server},{port};DATABASE={database};UID={username};PWD={password}'
+    conn_str = f'DRIVER={driver};SERVER={server},{port};DATABASE={database};UID={username};PWD={password};Encrypt=yes;TrustServerCertificate=yes'
     
     try:
         conn = pyodbc.connect(conn_str)
