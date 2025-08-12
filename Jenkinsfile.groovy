@@ -40,10 +40,27 @@ pipeline {
                         }
                         stage('Deploy Container') {
                             steps {
-                                script {
-                                    dockerStopRemove(env.BACKEND_CONTAINER_NAME)
-                                    echo "Running new Backend container..."
-                                    sh "docker run -d --name ${env.BACKEND_CONTAINER_NAME} --network ${DOCKER_NETWORK} -p 5001:5001 --restart always ${env.BACKEND_IMAGE_NAME}"
+                                withCredentials([
+                                    string(credentialsId: 'mssql-server', variable: 'MSSQL_SERVER'),
+                                    string(credentialsId: 'mssql-database', variable: 'MSSQL_DATABASE'),
+                                    string(credentialsId: 'mssql-user', variable: 'MSSQL_USER'),
+                                    string(credentialsId: 'mssql-password', variable: 'MSSQL_PASSWORD'),
+                                    string(credentialsId: 'mssql-port', variable: 'MSSQL_PORT')
+                                ]) {
+                                    script {
+                                        dockerStopRemove(env.BACKEND_CONTAINER_NAME)
+                                        echo "Running new Backend container..."
+                                        sh """docker run -d --name ${env.BACKEND_CONTAINER_NAME} \
+                                            --network ${DOCKER_NETWORK} \
+                                            -p 5001:5001 \
+                                            --restart always \
+                                            -e MSSQL_SERVER=${MSSQL_SERVER} \
+                                            -e MSSQL_DATABASE=${MSSQL_DATABASE} \
+                                            -e MSSQL_USER=${MSSQL_USER} \
+                                            -e MSSQL_PASSWORD=${MSSQL_PASSWORD} \
+                                            -e MSSQL_PORT=${MSSQL_PORT} \
+                                            ${env.BACKEND_IMAGE_NAME}"""
+                                    }
                                 }
                             }
                         }
