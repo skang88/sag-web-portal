@@ -7,8 +7,8 @@ WORKDIR /app
 # 3. 환경 변수 설정 (버퍼링 없이 즉시 로그 출력)
 ENV PYTHONUNBUFFERED 1
 
-# 4. Microsoft ODBC Driver for SQL Server 설치
-RUN apt-get update && apt-get install -y curl gnupg
+# 4. Microsoft ODBC Driver for SQL Server 및 네트워크 도구 설치
+RUN apt-get update && apt-get install -y curl gnupg netcat-traditional
 RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
 RUN curl -fsSL https://packages.microsoft.com/config/debian/12/prod.list > /etc/apt/sources.list.d/mssql-release.list
 

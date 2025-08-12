@@ -41,11 +41,8 @@ pipeline {
                         stage('Deploy Container') {
                             steps {
                                 script {
-                                    echo "--- Installing netcat for network test ---"
-                                    sh "apt-get update && apt-get install -y netcat-traditional || echo 'netcat already installed or failed to install.'"
-
-                                    echo "--- Running Network Connectivity Test ---"
-                                    sh "nc -zv 172.16.220.3 1433 || echo 'Connection test failed. Check firewall rules.'"
+                                    echo "--- Running Network Connectivity Test inside a temporary container ---"
+                                    sh "docker run --rm ${env.BACKEND_IMAGE_NAME} nc -zv 172.16.220.3 1433 || echo 'Connection test failed. Check firewall rules.'"
 
                                     echo "--- Attempting to run container ---"
                                     dockerStopRemove(env.BACKEND_CONTAINER_NAME)
@@ -60,9 +57,6 @@ pipeline {
                                         -e MSSQL_PASSWORD='1q2w3e4r' 
                                         -e MSSQL_PORT='1433' 
                                         ${env.BACKEND_IMAGE_NAME}"""
-                                }
-                            }
-                        }
                     }
                 }
                 stage('Build Frontend') {
