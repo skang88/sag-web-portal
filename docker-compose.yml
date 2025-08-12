@@ -1,10 +1,13 @@
-# 배포 전 로컬 개발환경에서 컨테이너 테스트를 위한 Docker Compose 설정입니다.
-version: '3.8'
-
 services:
   backend:
     build: ./backend
     container_name: sag_portal_backend
+    environment:
+      - MSSQL_SERVER=172.16.220.3
+      - MSSQL_DATABASE=SAG
+      - MSSQL_USER=seokgyun
+      - MSSQL_PASSWORD=1q2w3e4r
+      - MSSQL_PORT=1433
     ports:
       - "5001:5001" # 호스트 포트 5001번을 컨테이너 5001번 포트와 연결
     # 로컬 개발 시 코드 변경을 즉시 반영하기 위해 volumes를 활성화합니다.

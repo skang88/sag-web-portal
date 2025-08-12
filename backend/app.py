@@ -21,7 +21,15 @@ def get_db_connection():
     username = os.getenv('MSSQL_USER')
     password = os.getenv('MSSQL_PASSWORD')
     port = os.getenv('MSSQL_PORT', 1433)
-    driver = '{SQL Server}'
+    driver = '{ODBC Driver 18 for SQL Server}' # '{SQL Server}'
+
+    # For debugging: Print environment variables (do not do this in production with sensitive data)
+    print(f"DEBUG: MSSQL_SERVER={server}")
+    print(f"DEBUG: MSSQL_DATABASE={database}")
+    print(f"DEBUG: MSSQL_USER={username}")
+    print(f"DEBUG: MSSQL_PASSWORD={password}") # Mask password
+    print(f"DEBUG: MSSQL_PORT={port}")
+    print(f"DEBUG: MSSQL_PORT={driver}")
     
     conn_str = f'DRIVER={driver};SERVER={server},{port};DATABASE={database};UID={username};PWD={password};Encrypt=yes;TrustServerCertificate=yes'
     
