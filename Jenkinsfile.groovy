@@ -41,6 +41,9 @@ pipeline {
                         stage('Deploy Container') {
                             steps {
                                 script {
+                                    echo "--- Installing netcat for network test ---"
+                                    sh "apt-get update && apt-get install -y netcat-traditional || echo 'netcat already installed or failed to install.'"
+
                                     echo "--- Running Network Connectivity Test ---"
                                     sh "nc -zv 172.16.220.3 1433 || echo 'Connection test failed. Check firewall rules.'"
 
