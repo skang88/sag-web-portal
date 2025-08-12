@@ -36,23 +36,27 @@ pipeline {
                         }
                         stage('Deploy Container') {
                             steps {
-                                script {
-                                    echo "--- Running Network Connectivity Test inside a temporary container ---"
-                                    sh "docker run --rm ${env.BACKEND_IMAGE_NAME} nc -zv 172.16.220.3 1433 || echo 'Connection test failed. Check firewall rules.'"
-
-                                    echo "--- Attempting to run container ---"
-                                    dockerStopRemove(env.BACKEND_CONTAINER_NAME)
-                                    echo "Running new Backend container with hardcoded credentials for debugging..."
-                                    sh """docker run -d --name ${env.BACKEND_CONTAINER_NAME} \
-                                        --network ${DOCKER_NETWORK} \
-                                        -p 5001:5001 \
-                                        --restart always \
-                                        -e MSSQL_SERVER='172.16.220.3' \
-                                        -e MSSQL_DATABASE='SAG' \
-                                        -e MSSQL_USER='seokgyun' \
-                                        -e MSSQL_PASSWORD='1q2w3e4r' \
-                                        -e MSSQL_PORT='1433' \
-                                        ${env.BACKEND_IMAGE_NAME}"""
+                                withCredentials([
+                                    string(credentialsId: 'mssql-server', variable: 'MSSQL_SERVER'),
+                                    string(credentialsId: 'mssql-database', variable: 'MSSQL_DATABASE'),
+                                    string(credentialsId: 'mssql-user', variable: 'MSSQL_USER'),
+                                    string(credentialsId: 'mssql-password', variable: 'MSSQL_PASSWORD'),
+                                    string(credentialsId: 'mssql-port', variable: 'MSSQL_PORT')
+                                ]) {
+                                    script {
+                                        dockerStopRemove(env.BACKEND_CONTAINER_NAME)
+                                        echo "Running new Backend container..."
+                                        sh """docker run -d --name ${env.BACKEND_CONTAINER_NAME} \
+                                            --network ${DOCKER_NETWORK} \
+                                            -p 5001:5001 \
+                                            --restart always \
+                                            -e MSSQL_SERVER=${MSSQL_SERVER} \
+                                            -e MSSQL_DATABASE=${MSSQL_DATABASE} \
+                                            -e MSSQL_USER=${MSSQL_USER} \
+                                            -e MSSQL_PASSWORD=${MSSQL_PASSWORD} \
+                                            -e MSSQL_PORT=${MSSQL_PORT} \
+                                            ${env.BACKEND_IMAGE_NAME}"""
+                                    }
                                 }
                             }
                         }
