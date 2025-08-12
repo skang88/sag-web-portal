@@ -7,13 +7,21 @@ WORKDIR /app
 # 3. 환경 변수 설정 (버퍼링 없이 즉시 로그 출력)
 ENV PYTHONUNBUFFERED 1
 
-# 4. 의존성 설치
+# 4. Microsoft ODBC Driver for SQL Server 설치
+RUN apt-get update && apt-get install -y curl gnupg
+RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
+RUN curl -fsSL https://packages.microsoft.com/config/debian/12/prod.list > /etc/apt/sources.list.d/mssql-release.list
+
+RUN apt-get update
+RUN ACCEPT_EULA=Y apt-get install -y msodbcsql18 unixodbc-dev
+
+# 5. 의존성 설치
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 5. 애플리케이션 코드 복사
+# 6. 애플리케이션 코드 복사
 COPY . .
 
-# 6. 포트 노출 및 서버 실행
+# 7. 포트 노출 및 서버 실행
 EXPOSE 5001
 CMD ["gunicorn", "--bind", "0.0.0.0:5001", "app:app"]
