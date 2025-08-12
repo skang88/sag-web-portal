@@ -20,8 +20,8 @@ services:
       target: build-stage
     container_name: sag_portal_frontend
     ports:
-      # Vite 개발 서버의 기본 포트인 5173을 호스트의 8050 포트와 연결합니다.
-      - "8050:5173"
+      # Vite 개발 서버의 기본 포트인 5173을 호스트의 5173 포트와 연결합니다.
+      - "5173:5173"
     depends_on:
       - backend
     # 프론트엔드 핫 리로딩을 위해 소스 코드를 마운트하고 개발 서버를 실행합니다.
