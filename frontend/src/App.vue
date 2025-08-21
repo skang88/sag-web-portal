@@ -29,13 +29,4 @@ import { RouterLink, RouterView } from 'vue-router'
   </main>
 </template>
 
-<style>
-/* Add some basic styling */
-body {
-  background-color: #f4f4f4;
-}
 
-.bg-custom-blue {
-  background-color: #0B4DA3 !important; /* !important to override Bootstrap's bg-dark */
-}
-</style>
