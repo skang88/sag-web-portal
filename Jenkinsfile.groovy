@@ -7,7 +7,7 @@ pipeline {
         BACKEND_CONTAINER_NAME = 'backend'
         FRONTEND_CONTAINER_NAME = 'frontend'
         DOCKER_NETWORK = 'sag-portal-net'
-        VITE_API_BACKEND_URL = 'http://localhost:5001'
+        VITE_API_BACKEND_URL = 'http://backend:5001'
     }
 
     stages {
