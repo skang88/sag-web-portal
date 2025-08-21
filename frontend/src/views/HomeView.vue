@@ -23,7 +23,7 @@ const error = ref<string | null>(null);
 onMounted(async () => {
   try {
     // Use the VITE_API_BACKEND_URL environment variable
-    const backendUrl = import.meta.env.VITE_API_BACKEND_URL || 'http://localhost:5001'; // Fallback for local dev
+    const backendUrl = import.meta.env.VITE_API_BACKEND_URL || 'http://null:5001'; // Fallback for local dev
     const response = await fetch(`${backendUrl}/api/data`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
