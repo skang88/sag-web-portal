@@ -7,7 +7,7 @@ pipeline {
         BACKEND_CONTAINER_NAME = 'backend'
         FRONTEND_CONTAINER_NAME = 'frontend'
         DOCKER_NETWORK = 'sag-portal-net'
-        VITE_API_BACKEND_URL = 'http://172.16.220.32:5001'
+        VITE_API_BACKEND_URL = 'https://seohanga.com/api'
     }
 
     stages {
