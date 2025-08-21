@@ -4,6 +4,9 @@ FROM node:20 as build-stage
 
 WORKDIR /app
 
+ARG VITE_API_BACKEND_URL
+ENV VITE_API_BACKEND_URL=$VITE_API_BACKEND_URL
+
 COPY package*.json ./
 RUN npm install
 

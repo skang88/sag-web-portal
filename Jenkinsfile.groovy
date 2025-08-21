@@ -69,7 +69,7 @@ pipeline {
                             steps {
                                 echo "Building Frontend Docker image: ${env.FRONTEND_IMAGE_NAME}"
                                 script {
-                                    docker.build(env.FRONTEND_IMAGE_NAME, './frontend')
+                                    docker.build(env.FRONTEND_IMAGE_NAME, "./frontend --build-arg VITE_API_BACKEND_URL=${env.VITE_API_BACKEND_URL}")
                                 }
                             }
                         }
