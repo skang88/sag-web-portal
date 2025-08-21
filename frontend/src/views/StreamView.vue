@@ -18,7 +18,9 @@ let socket: Socket | null = null;
 
 onMounted(() => {
   // Connect to the Socket.IO server on the Flask backend
-  socket = io(import.meta.env.VITE_APP_BACKEND_URL);
+  const socketUrl = import.meta.env.VITE_APP_BACKEND_URL;
+  console.log('Attempting to connect to Socket.IO at:', socketUrl);
+  socket = io(socketUrl);
 
   socket.on('connect', () => {
     console.log('Connected to WebSocket server.');
