@@ -1,10 +1,13 @@
-# /path/to/your/project/my-web-portal/backend/app.py
+import eventlet
+eventlet.monkey_patch()
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 import pyodbc
+from flask_socketio import SocketIO
+from . import relay_controller
 
 # .env 파일에서 환경 변수 로드
 load_dotenv()
@@ -14,6 +17,14 @@ app = Flask(__name__)
 
 # CORS 설정
 CORS(app)
+
+# SocketIO 설정
+async_mode = "eventlet"
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode=async_mode)
+
+# relay_controller의 소켓 이벤트 등록
+relay_controller.register_socketio_events(socketio)
+
 
 def get_db_connection():
     server = os.getenv('MSSQL_SERVER')
@@ -105,4 +116,4 @@ def get_asn():
 
 
 if __name__ == '__main__':
-    app.run()
+    socketio.run(app, port=5001, host='0.0.0.0', use_reloader=False)
