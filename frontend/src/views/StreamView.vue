@@ -18,7 +18,7 @@ let socket: Socket | null = null;
 
 onMounted(() => {
   // Connect to the Socket.IO server on the Flask backend
-  socket = io('http://localhost:5001');
+  socket = io('http://172.16.220.32:5001');
 
   socket.on('connect', () => {
     console.log('Connected to WebSocket server.');

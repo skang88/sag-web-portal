@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-custom-blue">
       <div class="container">
         <a class="navbar-brand" href="#">SAG Web Portal</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,5 +33,9 @@ import { RouterLink, RouterView } from 'vue-router'
 /* Add some basic styling */
 body {
   background-color: #f4f4f4;
+}
+
+.bg-custom-blue {
+  background-color: #0B4DA3 !important; /* !important to override Bootstrap's bg-dark */
 }
 </style>
